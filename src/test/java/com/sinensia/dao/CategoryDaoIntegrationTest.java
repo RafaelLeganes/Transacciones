@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sinensia.daocontracts.IAdd;
 import com.sinensia.model.Category;
 import com.sinensia.model.Product;
 
@@ -38,7 +39,7 @@ public class CategoryDaoIntegrationTest {
 	@Test
 	public void testAddCategory() throws SQLException {
 		Category category = new Category();
-		IDao<Category> categoryDao = new CategoryDao();
+		IAdd<Category> categoryDao = new CategoryDao();
 		category.setCategoryName("Telas");
 		categoryId = categoryDao.add(category);
 		assertTrue(categoryId>0);			
@@ -48,7 +49,7 @@ public class CategoryDaoIntegrationTest {
 	public void testAddCategory2() throws SQLException {
 		Category category = new Category();
 		List<Product> listaProduct = new ArrayList<Product>();
-		IDao<Category> categoryDao = new CategoryDao();
+		IAdd<Category> categoryDao = new CategoryDao();
 		category.setCategoryName("Mueble");
 		Product product = new Product();
 		product.setProductName("Mesa");

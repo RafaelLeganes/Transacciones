@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>AlumnoController</servlet-name>
+  	<display-name>AlumnoController</display-name>
+  	<description></description>
+  	<servlet-class>com.sinensia.controllers.AlumnoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>AlumnoController</servlet-name>
+  	<url-pattern>/AlumnoController</url-pattern>
+  </servlet-mapping>
 </web-app>

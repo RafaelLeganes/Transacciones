@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -11,12 +13,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.sinensia.daocontracts.IAdd;
+import com.sinensia.daocontracts.IAddWithConnection;
 import com.sinensia.model.Category;
 import com.sinensia.model.Product;
 
 public class ProductDaoIntegrationTest extends BaseDao{
-	
-	private static int productId =0;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -37,16 +39,19 @@ public class ProductDaoIntegrationTest extends BaseDao{
 	@Test
 	public void testAddProductConnection() throws SQLException {
 		Connection connect = (Connection) super.getconnection();
+		List<Product> productos = new ArrayList<Product>();
 		Product producto = new Product();
-		IDao<Product> productDao = new ProductDao();
+		IAddWithConnection<Product,Connection> productDao = new ProductDao();
 		producto.setProductName("Silla");
 		Category category = new Category();
-		IDao<Category> categoryDao = new CategoryDao();
+		IAdd<Category> categoryDao = new CategoryDao();
 		category.setCategoryName("Telas");
 		int categoryId = categoryDao.add(category);
 		producto.setCategoryId(categoryId);
-		productId = productDao.add(producto, connect);
-		assertTrue(productId>0);
+		productos.add(producto);
+		category.setProductos(productos);
+		boolean correcto = productDao.add(productos, connect);
+		assertTrue(correcto==true);
 	}
 
 }

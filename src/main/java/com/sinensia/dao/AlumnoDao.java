@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sinensia.daocontracts.IDao;
 import com.sinensia.model.Alumno;
 
 public class AlumnoDao extends BaseDao implements IDao<Alumno> {
@@ -172,13 +173,6 @@ private Connection connect;
 			}
 		}
 		return borrado;
-	}
-
-
-	@Override
-	public int add(Alumno modelo, Connection con) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 

@@ -5,12 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
+import com.sinensia.daocontracts.IAdd;
 import com.sinensia.model.Category;
 import com.sinensia.model.Product;
 
-public class CategoryDao extends BaseDao implements IDao<Category> {
+public class CategoryDao extends BaseDao implements IAdd<Category> {
 
 	@Override
 	public int add(Category category) throws SQLException {
@@ -26,20 +26,27 @@ public class CategoryDao extends BaseDao implements IDao<Category> {
 			
 			preparedStatement.executeUpdate();
 			rsKey = preparedStatement.getGeneratedKeys();
-			
+	
 			rsKey.next();
 			categoryId = rsKey.getInt(1);
 			ProductDao productdao= new ProductDao();
 			if(category.getProductos()!=null) {
 				for(Product producto: category.getProductos()) {
 					producto.setCategoryId(categoryId);
-					productdao.add(producto, connect);
 				}
+				productdao.add(category.getProductos(), connect);
 			}
 			connect.commit();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			connect.rollback();
+			if(connect != null) {
+				try{
+					connect.rollback();
+				} catch(SQLException e1) {
+					e1.printStackTrace();
+					throw e1;
+				}
+			}
 			throw e;
 		} finally {
 			if(preparedStatement != null) {
@@ -54,35 +61,4 @@ public class CategoryDao extends BaseDao implements IDao<Category> {
 		}
 		return categoryId;
 	}
-
-	@Override
-	public int modify(Category modelo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public List<Category> get() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Category getById(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int remove(int id) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int add(Category modelo, Connection con) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

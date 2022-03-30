@@ -13,6 +13,7 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import com.sinensia.daocontracts.IDao;
 import com.sinensia.model.Alumno;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)

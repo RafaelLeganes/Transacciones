@@ -1,6 +1,5 @@
-package com.sinensia.dao;
+package com.sinensia.daocontracts;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,7 +17,5 @@ public interface IDao<T> {
 	public T getById(int id) throws SQLException;
 	
 	public int remove(int id) throws SQLException;
-
-	int add(T modelo, Connection con) throws SQLException;
 
 }
